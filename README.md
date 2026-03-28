@@ -25,15 +25,15 @@ Build and ship a portfolio of AI-assisted SaaS products across edtech, events, 3
 | # | Project | Stack | Priority | Status |
 |---|---------|-------|----------|--------|
 | 1 | Odoo POS Terminal | Python / Odoo | 🔴 Ship Now | Active |
-| 2 | Bridging Africa API | Python / Odoo | 🔴 Ship Now | Active |
+| 2 | Bridging Africa API | Python / Odoo | On Hold | On Hold |
 | 3 | EventSaas | TypeScript / React | 🔴 Ship Now | Active |
 | 4 | Kora Tutor | TypeScript / Next.js | 🟡 Active Dev | Active |
-| 5 | SmartPress (3D) | TypeScript | 🟡 Active Dev | Active |
+| 5 | SmartPress (3D) | TypeScript | On Hold | On Hold |
 | 6 | OpenMindi AI Studio | JavaScript | 🟡 Active Dev | Active |
-| 7 | Atlas Website | TypeScript | 🟡 Active Dev | Active |
+| 7 | Atlas Website | TypeScript | On Hold | On Hold |
 | 8 | Namka Mission Control | TypeScript | 🟡 Active Dev | Active |
-| 9 | Khula Landing | TypeScript / React | 🟡 Active Dev | Active |
-| 10 | Khula Learning | JavaScript / Firebase | 🟡 Active Dev | Active |
+| 9 | Khula Landing | TypeScript / React | On Hold | On Hold |
+| 10 | Khula Learning | JavaScript / Firebase | On Hold | On Hold |
 
 > See `Master.md` for the full project list including Priority 3–5 projects, blockers, and next steps.
 
