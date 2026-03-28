@@ -240,18 +240,14 @@ Gemini can then:
 
 - **Purpose:** Prevent hallucinations caused by agents filling knowledge gaps with guesses.
 - **Flow:** Agent A reviews → saves to Master.md → Agent B reads Agent A's review before reviewing → conflicts surface as explicit disagreements → Ali ratifies → Master.md updated.
-- **NotebookLM role:** Shared read layer. All agents query it before starting work. Refresh source after each Master.md commit.
-- **Review consensus field** per project in Mission Control: `Unreviewed` → `Agent Reviewed` → `Cross-Checked` → `Ratified`.
-- Once `Ratified`, agents treat spec as locked — no re-architecture without Ali's explicit approval.
+**GitHub Master.md URL:** Direct source of truth. All agents read this URL before starting work: `https://github.com/AliMora83/Namka-Mission-Control/blob/main/Master.md` — zero lag, always up-to-date.
+- **Review consensus field:** Per project in Mission Control: `Unreviewed` → `Agent Reviewed` → `Cross-Checked` → `Ratified`.
+- **Once `Ratified`:** Agents treat spec as locked — no re-architecture without Ali's explicit approval.
 
-#### NotebookLM Integration Notes
+#### Architecture (Plan B: GitHub as Live Source)
 
-- NotebookLM = **strategic memory + agent briefing layer** (read-only intelligence).
-- Master.md on GitHub = **ratified execution truth** (agents write code against this).
-- Mission Control = **live execution cockpit** (what's running, what needs Ali).
-- Workflow: Commit review to Master.md → NotebookLM refreshes source → all agents updated.
-- Add `Last reviewed in NotebookLM` date field per project to track which projects have up-to-date AI reasoning.
-
----
-
-> 🔁 **Next:** Claude or Gemini to cross-check and mark as `Ratified` or flag disagreements.
+- **GitHub Master.md** = Live source of truth. Agents read the file URL directly before starting work (no caching, no sync delay).
+- **Mission Control** = Live execution cockpit (what's running, what needs Ali's approval).
+- **NotebookLM** (optional) = Deep analysis and cross-project synthesis layer. Syncs in background, not time-critical.
+- **Workflow:** Agent produces output → Commit to Master.md → Next agent reads it immediately.
+- **Briefing protocol:** "Before starting [project], read Master.md and check the AI Reviews & Artifacts section for existing decisions."
