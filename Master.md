@@ -208,3 +208,50 @@ Gemini can then:
 - Know the current next step without re-explaining
 - Respect blockers (items marked "Needs Ali's input")
 - Use the correct AI model preference per project
+
+
+---
+
+## 🤖 AI Reviews & Artifacts
+
+> This section is the shared context layer for all AI agents.
+> Before starting work on any project, agents should read the relevant entries here.
+> Review consensus states: `Unreviewed` → `Agent Reviewed` → `Cross-Checked` → `Ratified`
+> Once **Ratified**, treat decisions as locked truth — do not second-guess architecture.
+
+---
+
+### 2026-03-28 — Mission Control Architecture Review (Comet / Perplexity)
+
+**Status:** `Cross-Checked` — pending Gemini/Claude verification
+**Reviewed by:** Comet (Perplexity)
+**Scope:** Namka Mission Control dashboard design, multi-agent workflow protocol
+
+#### Key Decisions & Recommendations
+
+1. **Portfolio axes per project** — Every project must expose: Type, Status, Health (RAG), Next Checkpoint (date), Ownership (Agent only / Agent+Ali / Ali only).
+2. **"Review & Approve" as first-class lane** — Aggregate all cross-project items blocked on Ali into one lane, sorted by due date and revenue impact. Inline actions: Approve / Request changes / Snooze.
+3. **Portfolio Agent (Chief of Staff)** — One orchestrator agent monitors all projects and surfaces a daily digest: "3 projects can advance with just your approval." Tracks promises and pushes them to the approval lane when prerequisites are met.
+4. **One overview page + drill-down drawer** — Top: 4–6 KPIs (active projects, waiting approvals, overdue, agents idle/busy). Middle: portfolio grid grouped by Health + Type. Bottom: Today's Log. Click = right-side drawer with goal, tasks, agent runs, next approval.
+5. **Capacity guardrails** — Max 3 Priority + 5 Background projects active at once. Mission Control asks which to pause if limit is exceeded. Portfolio Agent suggests demotion candidates by impact.
+6. **Live cockpit mode** — Dashboard stays open all day, not just morning check-in. Auto-refresh with soft pulse on unseen changes. Manual/auto toggle.
+
+#### Multi-Agent Context Protocol (MACP)
+
+- **Purpose:** Prevent hallucinations caused by agents filling knowledge gaps with guesses.
+- **Flow:** Agent A reviews → saves to Master.md → Agent B reads Agent A's review before reviewing → conflicts surface as explicit disagreements → Ali ratifies → Master.md updated.
+- **NotebookLM role:** Shared read layer. All agents query it before starting work. Refresh source after each Master.md commit.
+- **Review consensus field** per project in Mission Control: `Unreviewed` → `Agent Reviewed` → `Cross-Checked` → `Ratified`.
+- Once `Ratified`, agents treat spec as locked — no re-architecture without Ali's explicit approval.
+
+#### NotebookLM Integration Notes
+
+- NotebookLM = **strategic memory + agent briefing layer** (read-only intelligence).
+- Master.md on GitHub = **ratified execution truth** (agents write code against this).
+- Mission Control = **live execution cockpit** (what's running, what needs Ali).
+- Workflow: Commit review to Master.md → NotebookLM refreshes source → all agents updated.
+- Add `Last reviewed in NotebookLM` date field per project to track which projects have up-to-date AI reasoning.
+
+---
+
+> 🔁 **Next:** Claude or Gemini to cross-check and mark as `Ratified` or flag disagreements.
