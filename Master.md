@@ -251,3 +251,62 @@ Gemini can then:
 - **NotebookLM** (optional) = Deep analysis and cross-project synthesis layer. Syncs in background, not time-critical.
 - **Workflow:** Agent produces output → Commit to Master.md → Next agent reads it immediately.
 - **Briefing protocol:** "Before starting [project], read Master.md and check the AI Reviews & Artifacts section for existing decisions."
+
+---
+
+### 2026-03-28 — Mission Control Dashboard Implementation (Claude / Anthropic)
+
+**Status:** `Agent Reviewed` — pending Comet cross-check
+**Reviewed by:** Claude (Anthropic)
+**Scope:** Switch Mission Control dashboard data source from Google Sheets to GitHub Master.md
+
+#### Critical Architectural Decision
+
+The current dashboard reads from Google Sheets via `gviz/tq` — which is **fragile, slow, and keeps breaking**. The sheet should only be a UI for editing. **The dashboard should read from GitHub Master.md directly.**
+
+#### Implementation Steps
+
+1. **Fix status** (Quick fixes in Master.md):
+   - Row 2 (Odoo POS): Change STATUS from "On Hold" → `Active`
+   - Row 3 (Bridging Africa): Change STATUS to `Active`
+   - Delete Row 9 (duplicate)
+
+2. **Add new columns** to all project entries in Master.md:
+   - `EFFORT`: S/M/L/XL per project (estimated complexity)
+   - `BLOCKER`: Extract from "Needs Ali's input" notes → standardized blocker field
+   - `LAST_COMMIT`: Pull from GitHub API or manually add last commit date
+   - `PROGRESS`: For Odoo POS only, add `45` (percent complete)
+
+3. **Create `fetchProjectsFromMaster()` function** in Apps Script (`lib/fetchProjects.ts`):
+```typescript
+const MASTER_MD_URL = 
+  'https://raw.githubusercontent.com/AliMora83/Namka-Mission-Control/main/Master.md'
+
+export async function fetchProjectsFromMaster(): Promise<ProjectCard[]> {
+  const res = await fetch(MASTER_MD_URL)
+  const text = await res.text()
+  return parseMasterMd(text) // parse markdown → ProjectCard[] interface
+}
+```
+
+4. **Build `parseMasterMd(text)` parser**:
+   - Reads `##` project sections
+   - Extracts bullet fields: `Status`, `Stack`, `Next Step`, `AI Model`, `Blocker`, `Effort`, `Last Commit`, `Progress`
+   - Maps to `ProjectCard` interface
+   - Since Master.md is committed on every update, **always fresh — no sheet sync issues**
+
+#### Benefits
+
+- **Zero lag**: Master.md is the live source agents already read
+- **No column mapping issues**: Parser reads markdown structure directly
+- **No gviz wrapper to strip**: Direct fetch from GitHub raw URL
+- **Version controlled**: Every dashboard change is a Git commit
+- **Agents write directly**: Qwen/Claude/Gemini can commit project updates to Master.md
+
+#### Next Step
+
+Qwen (build agent) implements `fetchProjectsFromMaster()` + `parseMasterMd()` and wires it into the dashboard frontend. Estimated effort: **~1 hour**.
+
+---
+
+> 🔁 **Next:** Comet to cross-check and mark as `Ratified`, or Qwen to implement directly if approved.
