@@ -16,7 +16,7 @@
 
 ## 🎯 Mission
 
-Build and ship a portfolio of AI-assisted SaaS products across edtech, events, 3D manufacturing, and developer tooling — leveraging free-tier APIs and AI coding assistants (Gemini, Claude, Qwen) for maximum velocity.
+Build and ship a portfolio of AI-assisted SaaS products across edtech, events, 3D manufacturing, and developer tooling — leveraging free-tier APIs and AI coding assistants (Gemini, Claude, Antigravity) for maximum velocity.
 
 ---
 
@@ -57,7 +57,7 @@ This project uses a **Multi-Agent Context Protocol (MACP)** to coordinate AI ass
 
 | Agent | Role |
 |-------|------|
-| **Qwen** | Build agent — Odoo, Python, autonomous implementation |
+| **Antigravity** | Build agent — Odoo, Python, autonomous implementation |
 | **Claude** | Full-stack agent — React, TypeScript, architecture |
 | **Gemini** | Analysis + low-priority automation tasks |
 | **Comet (Perplexity)** | Cross-check, ratification, architecture review |
@@ -74,7 +74,7 @@ This is the **Mission Control hub** for all Namka projects. Keep it concise — 
 
 ## 🤖 Instructions for AI Agents
 
-> **If you are an AI assistant (Claude, Gemini, Qwen, Perplexity, or any agent) reading this file:**
+> **If you are an AI assistant (Claude, Gemini, Antigravity, Perplexity, or any agent) reading this file:**
 > Before starting any work on this project or any project in this portfolio, you **must** read the full `Master.md` file. It is the single source of truth and contains:
 
 - All active projects, stacks, and statuses
