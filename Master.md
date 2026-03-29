@@ -71,7 +71,7 @@ AI coding assistants (Gemini, Claude, Qwen) for maximum velocity.
 - **Repo:** https://github.com/AliMora83/Atlas-Website
 - **Stack:** TypeScript
 - **Status:** Active | Last commit: 2026-02-21
-- **Next Step:** Integrate Odoo backend + build conference agenda UI + speaker pages
+- **Next Step:** Build conference agenda UI + speaker pages
 - **AI Model:** Claude
 - **Blocker:** Odoo integration spec needed
 - **Notes:** Atlas Conference platform
