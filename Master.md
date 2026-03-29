@@ -309,4 +309,58 @@ Qwen (build agent) implements `fetchProjectsFromMaster()` + `parseMasterMd()` an
 
 ---
 
-> 🔁 **Next:** Comet to cross-check and mark as `Ratified`, or Qwen to implement directly if approved.
+> 
+
+---
+
+## 📋 Review Entry
+**Date**: 2025-01-25  
+**Agent**: Comet  
+**Status**: Cross-Checked  
+**Project**: Gemini Mission Control Dashboard  
+**Topic**: Code Refactoring Analysis
+
+### Analysis
+Reviewed the core dashboard codebase to identify refactoring opportunities for improved efficiency:
+
+**Current Architecture:**
+- Frontend: Next.js 15 with App Router
+- Database: Firestore (Firebase)
+- UI Components: shadcn/ui with Tailwind CSS
+- Data Flow: Client-side Firestore queries
+
+**Key Findings:**
+1. **Data Source Dependency**: Dashboard is tightly coupled to Firestore, but Master.md on GitHub is the actual source of truth
+2. **Double Entry Problem**: Project updates require editing both Master.md and Firestore data
+3. **Sync Lag**: Changes to Master.md don't immediately reflect in dashboard
+4. **Architecture Mismatch**: Using a database for what is essentially a markdown-driven workflow
+
+### Recommendations
+
+**Phase 1: GitHub as Primary Data Source** (Immediate)
+- Replace Firestore queries with GitHub API calls to fetch Master.md directly
+- Parse markdown structure to extract project cards
+- Benefits: Single source of truth, version control, agent collaboration enabled
+- Implementation: ~2 hours
+
+**Phase 2: Component Optimization** (Short-term)
+- Extract ProjectCard to separate component file
+- Create reusable StatusBadge component
+- Implement proper TypeScript interfaces for type safety
+- Add loading states and error boundaries
+
+**Phase 3: Real-time Updates** (Medium-term)  
+- Implement GitHub webhooks for instant updates
+- Add WebSocket connection for live dashboard refresh
+- Cache parsed markdown data with SWR or React Query
+
+**Phase 4: Advanced Features** (Long-term)
+- Agent activity feed showing recent reviews
+- Consensus visualization for MACP workflow
+- Interactive markdown editing directly from dashboard
+- Multi-project dashboard using Template-Master.md pattern
+
+### Next Action
+> ⚡ **Qwen to implement Phase 1**: Refactor data fetching from Firestore to GitHub Master.md parsing
+
+---🔁 **Next:** Comet to cross-check and mark as `Ratified`, or Qwen to implement directly if approved.
